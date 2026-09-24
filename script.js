@@ -23,5 +23,3 @@ btn.onclick = () => {
         "_blank"
     );
 };
-document.getElementById("avatar").src =
-  "https://a.ppy.sh/38993897";
