@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Hellsingg | osu!</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Inter,sans-serif}
+body{
+background:#050507;
+color:white;
+overflow-x:hidden;
+}
+body:before{
+content:"";
+position:fixed;
+inset:0;
+background:
+radial-gradient(circle at 80% 10%,rgba(255,0,50,.15),transparent 35%),
+radial-gradient(circle at 20% 80%,rgba(255,0,40,.12),transparent 35%);
+z-index:-1;
+}
+.sidebar{
+position:fixed;
+left:0;top:0;
+width:74px;height:100vh;
+background:#09090c;
+border-right:1px solid #2b0008;
+display:flex;
+flex-direction:column;
+align-items:center;
+padding:18px 0;
+gap:26px;
+}
+.logo{
+width:46px;height:46px;
+border-radius:50%;
+background:#ff0048;
+display:grid;
+place-items:center;
+font-weight:800;
+}
+.sideIcon{
+width:42px;height:42px;
+border-radius:12px;
+display:grid;
+place-items:center;
+color:#888;
+font-size:22px;
+transition:.3s;
+}
+.sideIcon:hover{
+background:#220008;
+color:#ff2b60;
+}
+.main{
+margin-left:74px;
+}
+.nav{
+height:60px;
+display:flex;
+align-items:center;
+padding:0 35px;
+border-bottom:1px solid #240007;
+background:#08090d;
+gap:30px;
+}
+.nav a{
+color:#aaa;
+text-decoration:none;
+font-size:14px;
+}
+.nav a.active{
+color:#ff2c61;
+font-weight:700;
+}
+.banner{
+height:210px;
+background:
+linear-gradient(rgba(0,0,0,.35),rgba(0,0,0,.55)),
+url("banner.gif");
+background-size:cover;
+background-position:center;
+border-bottom:2px solid #530010;
+}
+.wrapper{
+padding:24px;
+display:grid;
+grid-template-columns:2fr 1fr;
+gap:18px;
+}
+.left,.right{
+display:flex;
+flex-direction:column;
+gap:18px;
+}
+.card{
+background:#0b0d14;
+border:1px solid #37000d;
+border-radius:18px;
+box-shadow:0 0 20px rgba(255,0,40,.05);
+}
+.profile{
+padding:20px;
+display:flex;
+align-items:center;
+gap:22px;
+position:relative;
+}
+.avatar{
+width:130px;
+height:130px;
+border-radius:50%;
+border:3px solid #ff1d57;
+object-fit:cover;
+box-shadow:0 0 30px rgba(255,0,60,.35);
+}
+.name{
+font-size:44px;
+font-weight:800;
+}
+.country{
+color:#bbb;
+margin-top:8px;
+}
+.level{
+margin-top:16px;
+height:8px;
+background:#202020;
+border-radius:30px;
+overflow:hidden;
+width:240px;
+}
+.level div{
+width:74%;
+height:100%;
+background:#ff1d57;
+}
+.sign{
+position:absolute;
+right:30px;
+top:30px;
+font-size:54px;
+color:#ff225f;
+opacity:.45;
+font-family:cursive;
+}
+.stats{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:14px;
+padding:18px;
+}
+.stat{
+background:#11141d;
+border:1px solid #2b0008;
+border-radius:14px;
+padding:18px;
+text-align:center;
+}
+.stat small{
+color:#888;
+}
+.stat h2{
+margin-top:8px;
+color:#fff;
+font-size:32px;
+}
+.section{
+padding:18px;
+}
+.title{
+color:#ff2f67;
+font-weight:700;
+margin-bottom:16px;
+font-size:20px;
+}
+.activityItem,.play{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:11px 0;
+border-bottom:1px solid #1d1d1d;
+}
+.rankBadge{
+width:36px;
+height:36px;
+border-radius:50%;
+display:grid;
+place-items:center;
+font-weight:700;
+background:#3d0010;
+color:#fff;
+}
+.pp{
+color:#ff3468;
+font-weight:700;
+}
+.medals{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:12px;
+}
+.medal{
+aspect-ratio:1;
+border-radius:14px;
+display:grid;
+place-items:center;
+font-size:30px;
+font-weight:800;
+background:#1a0010;
+border:1px solid #540014;
+color:#ff2d60;
+}
+.playstyle .row{
+display:flex;
+align-items:center;
+gap:10px;
+margin:12px 0;
+}
+.bar{
+flex:1;
+height:8px;
+background:#222;
+border-radius:30px;
+overflow:hidden;
+}
+.fill{
+height:100%;
+background:#ff245d;
+}
+.quote{
+height:240px;
+border-radius:18px;
+background:
+linear-gradient(rgba(0,0,0,.45),rgba(0,0,0,.6)),
+url("banner.gif");
+background-size:cover;
+background-position:center;
+display:flex;
+align-items:end;
+justify-content:end;
+padding:24px;
+color:#ff6b8d;
+font-size:28px;
+font-weight:700;
+text-align:right;
+}
+.footer{
+padding:18px 30px;
+border-top:1px solid #250008;
+color:#666;
+}
+@media(max-width:1100px){
+.wrapper{grid-template-columns:1fr}
+.stats{grid-template-columns:repeat(2,1fr)}
+.sign{display:none}
+}
+</style>
+</head>
+
+<body>
+
+<div class="sidebar">
+<div class="logo">osu!</div>
+<div class="sideIcon">🏠</div>
+<div class="sideIcon">👤</div>
+<div class="sideIcon">🏆</div>
+<div class="sideIcon">📈</div>
+<div class="sideIcon">⚙️</div>
+</div>
+
+<div class="main">
+
+<div class="nav">
+<a class="active">PROFILE</a>
+<a>PERFORMANCE</a>
+<a>BEATMAPS</a>
+<a>MEDALS</a>
+</div>
+
+<div class="banner"></div>
+
+<div class="wrapper">
+
+<div class="left">
+
+<div class="card profile">
+<img id="avatar" class="avatar" src="avatar.png">
+<div>
+<div id="username" class="name">Hellsingg</div>
+<div class="country">🇩🇪 Germany</div>
+
+<div class="level">
+<div></div>
+</div>
+
+<div style="margin-top:8px;color:#777;font-style:italic;">
+“The bird of Hermes...”
+</div>
+</div>
+
+<div class="sign">Alucard</div>
+</div>
+
+<div class="card stats">
+
+<div class="stat">
+<small>PP</small>
+<h2 id="pp">2756</h2>
+</div>
+
+<div class="stat">
+<small>GLOBAL RANK</small>
+<h2 id="rank">#336091</h2>
+</div>
+
+<div class="stat">
+<small>ACCURACY</small>
+<h2 id="acc">91.64%</h2>
+</div>
+
+<div class="stat">
+<small>PLAY COUNT</small>
+<h2 id="play">11349</h2>
+</div>
+
+</div>
+
+<div class="card section">
+<div class="title">Recent Activity</div>
+
+<div class="activityItem"><span>🏆 Freedom Dive FC</span><span class="pp">+412pp</span></div>
+<div class="activityItem"><span>🥇 Light it up SS</span><span class="pp">+367pp</span></div>
+<div class="activityItem"><span>⭐ Kegare Naki Yume</span><span class="pp">+298pp</span></div>
+<div class="activityItem"><span>🎵 Save Me</span><span class="pp">+243pp</span></div>
+<div class="activityItem"><span>💀 The Big Black</span><span class="pp">+198pp</span></div>
+
+</div>
+
+</div>
+
+<div class="right">
+
+<div class="card section">
+<div class="title">Top Plays</div>
+
+<div class="play"><span>#1 Freedom Dive</span><span class="pp">980pp</span></div>
+<div class="play"><span>#2 Kegare Naki Yume</span><span class="pp">967pp</span></div>
+<div class="play"><span>#3 Save Me</span><span class="pp">959pp</span></div>
+<div class="play"><span>#4 Glory Days</span><span class="pp">943pp</span></div>
+<div class="play"><span>#5 The Big Black</span><span class="pp">931pp</span></div>
+
+</div>
+
+<div class="card section">
+<div class="title">Medals</div>
+
+<div class="medals">
+<div class="medal">SS</div>
+<div class="medal">S</div>
+<div class="medal">SH</div>
+<div class="medal">A</div>
+</div>
+
+</div>
+
+<div class="card section playstyle">
+<div class="title">Playstyle</div>
+
+<div class="row">
+<span>🖱</span>
+<div class="bar"><div class="fill" style="width:65%"></div></div>
+<b>65%</b>
+</div>
+
+<div class="row">
+<span>⌨</span>
+<div class="bar"><div class="fill" style="width:25%"></div></div>
+<b>25%</b>
+</div>
+
+<div class="row">
+<span>🖊</span>
+<div class="bar"><div class="fill" style="width:10%"></div></div>
+<b>10%</b>
+</div>
+
+</div>
+
+<div class="quote card">
+<div>
+WE ARE THE<br>
+HELLSING<br>
+ORGANIZATION
+</div>
+</div>
+
+</div>
+
+</div>
+
+<div class="footer">
+ヘルシング | Hellsing
+</div>
+
+</div>
+
+<script>
+async function load(){
+
+const res=await fetch("http://localhost:3000/api/profile");
+const u=await res.json();
+
+document.getElementById("username").textContent=u.username;
+document.getElementById("pp").textContent=Math.round(u.statistics.pp);
+document.getElementById("rank").textContent="#"+u.statistics.global_rank.toLocaleString();
+document.getElementById("acc").textContent=u.statistics.hit_accuracy.toFixed(2)+"%";
+document.getElementById("play").textContent=u.statistics.play_count.toLocaleString();
+
+document.getElementById("avatar").src=u.avatar_url;
+
+}
+
+load();
+</script>
+
+</body>
+</html>
